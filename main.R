@@ -32,8 +32,7 @@ snr.can= c( 1, 1.2,1.4, 1.6 )
 RR=100
 vp.haus= matrix(0,nrow=RR,ncol=length(snr.can))
 vp.list=  vector("list", length = length(snr.can) )
-vp.time =matrix(0,nrow=RR,ncol=length(snr.can))
- 
+  
 
 
 for ( ss in 1:length(snr.can)){
@@ -79,15 +78,13 @@ for ( ss in 1:length(snr.can)){
     y.even =  y.data[seq(2, N  ,2)]
     X.even= X.data[,seq(2, N  ,2)]
     ran.intervals=gen.intervals(N/2 ,M)
-    start.time <- Sys.time()
-    vp.estimate = cv.vpcusum  (  ran.intervals, y.odd, X.odd,delta ,lambda.group.list,vp.tau.list,y.even,X.even )
+     vp.estimate = cv.vpcusum  (  ran.intervals, y.odd, X.odd,delta ,lambda.group.list,vp.tau.list,y.even,X.even )
     print("vp="); print( vp.estimate)
     
     vp.haus[ i,ss ] = hausdorff.distance(c(0,2*vp.estimate,N) ,true.changes,N)
     print(paste("vp.haus =", mean(vp.haus[1:i,ss])))
     vp.list[[ss]][[i]] = vp.estimate
-    end.time <- Sys.time()
-    vp.time[i,ss] =   difftime( end.time,start.time, units = "secs")/3
+   
     
     ###end of vp 
     
